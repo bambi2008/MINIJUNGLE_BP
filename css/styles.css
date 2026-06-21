@@ -188,7 +188,7 @@ img { display: block; max-width: 100%; }
   .pos-line .comment { min-width:auto; }
 }
 
-/* ═══════════════ BRAND VIDEO SECTION ═══════════════ */
+/* ═══════════════ BRAND VIDEO (unused in BP — reserved) ═══════════════ */
 .brand-video-section {
   position: relative;
   min-height: 100vh;
