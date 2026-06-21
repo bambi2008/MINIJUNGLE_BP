@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HK MiniJungle — ESG空間產品平台</title>
+  <meta name="description" content="HK MiniJungle 將城市綠化從重維護服務升級為可規模化的空間產品系統。基於Xponge材料的模塊化水培系統，B2B ESG資產提升 + B2C Home Panel雙引擎。">
+  <meta property="og:title" content="HK MiniJungle — ESG空間產品平台">
+  <meta property="og:description" content="不是綠植服務。是可規模化的ESG空間產品系統。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230D1F14'/><text x='16' y='23' text-anchor='middle' font-size='20' font-family='serif'>🌿</text></svg>">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <canvas id="bg-canvas"></canvas>
+  <div id="page-transition" class="page-transition"></div>
+
+  <button id="hamburger" class="hamburger"><span></span><span></span></button>
+  <button id="lang-toggle" class="lang-toggle">中文</button>
+
+  <nav id="fullnav" class="fullnav">
+    <div class="fullnav-inner">
+      <div class="fullnav-col">
+        <p class="fullnav-label" data-en="B2B — ESG Asset Enhancement" data-zh="B2B — ESG資產提升">B2B — ESG Asset Enhancement</p>
+        <a href="#b2b-office" class="fullnav-link" data-nav-close>Office ESG Upgrade</a>
+        <a href="#b2b-commercial" class="fullnav-link" data-nav-close>Commercial Green Upgrade</a>
+        <a href="#b2b-property" class="fullnav-link" data-nav-close>Property Asset Enhancement</a>
+      </div>
+      <div class="fullnav-col">
+        <p class="fullnav-label" data-en="B2C — Home Panel System" data-zh="B2C — 家庭面板系統">B2C — Home Panel System</p>
+        <a href="#c-home" class="fullnav-link" data-nav-close>Home Panel</a>
+        <a href="#c-pods" class="fullnav-link" data-nav-close>Plant Pods + Accessories</a>
+        <a href="#c-plans" class="fullnav-link" data-nav-close>Plant Plans</a>
+      </div>
+    </div>
+    <div class="fullnav-footer"><span>HK MiniJungle</span><span class="dot">—</span><span>ESG Space Product Platform</span></div>
+  </nav>
+
+  <main id="scroll-container">
+
+    <!-- ══ HERO ══ -->
+    <section id="hero" class="scene">
+      <div class="hero-content">
+        <p class="hero-overline" data-en="Xponge · Modular Hydroponics · ESG Asset Enhancement" data-zh="Xponge · 模塊化水培 · ESG資產提升">Xponge · Modular Hydroponics · ESG Asset Enhancement</p>
+        <h1 class="hero-title">HK MiniJungle</h1>
+        <p class="hero-subtitle" data-en="A SCALABLE SPACE PRODUCT SYSTEM.<br>NOT A PLANT SERVICE." data-zh="可規模化的空間產品系統。<br>不是綠植服務。">A SCALABLE SPACE PRODUCT SYSTEM.<br>NOT A PLANT SERVICE.</p>
+        <div class="hero-cursor">▮</div>
+      </div>
+    </section>
+
+    <!-- ══ POSITIONING ══ -->
+    <section id="positioning" class="scene positioning-section">
+      <div class="pos-grid">
+        <div class="pos-line"><span class="comment">// 01.</span><span class="statement" data-en="We do not sell plants. We sell space product systems." data-zh="我們賣的不是植物。是空間產品系統。">We do not sell plants. We sell space product systems.</span></div>
+        <div class="pos-line"><span class="comment">// 02.</span><span class="statement" data-en="Xponge soilless core. Modular. Pluggable. Scalable." data-zh="Xponge無土核心。模塊化。可插拔。可規模化。">Xponge soilless core. Modular. Pluggable. Scalable.</span></div>
+        <div class="pos-line"><span class="comment">// 03.</span><span class="statement" data-en="B2B: ESG-driven asset value. B2C: Customizable home nature." data-zh="B2B：ESG驅動的資產價值。B2C：可自定義的家庭自然系統。">B2B: ESG-driven asset value. B2C: Customizable home nature.</span></div>
+        <div class="pos-line"><span class="comment">// 04.</span><span class="statement" data-en="Not competing with potted plants. Competing with furniture." data-zh="不對標盆栽。對標家具和智能家居。">Not competing with potted plants. Competing with furniture.</span></div>
+      </div>
+    </section>
+
+    <!-- ══ DUAL ENGINE ══ -->
+    <section id="dual-engine" class="scene dual-section">
+      <div class="dual-header">
+        <p class="section-label">[ <span data-en="Business Model" data-zh="商業模型">Business Model</span> ]</p>
+        <h2 class="section-title" data-en="DUAL-ENGINE PLATFORM" data-zh="雙引擎平台">DUAL-ENGINE PLATFORM</h2>
+      </div>
+      <div class="dual-grid">
+        <a href="#b2b-office" class="dual-card b2b">
+          <span class="dual-tag">B2B</span>
+          <span class="dual-title">ESG Asset<br>Enhancement</span>
+          <span class="dual-desc">Project delivery + annual maintenance + ESG reporting + asset enhancement advisory</span>
+        </a>
+        <a href="#c-home" class="dual-card b2c">
+          <span class="dual-tag">B2C</span>
+          <span class="dual-title">Home Panel<br>Product System</span>
+          <span class="dual-desc">Equipment sales + plant pods + consumables + nursery kits — no rental, no maintenance service</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ═══════════ B2B SECTION ═══════════ -->
+
+    <!-- B2B 1: Office ESG Upgrade -->
+    <section id="b2b-office" class="scene product-section" data-product="b2b-office">
+      <video class="product-video-bg" muted autoplay loop playsinline poster="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80"><source src="video/office.mp4" type="video/mp4"></video>
+      <div class="product-bg-image"></div>
+      <div class="product-overlay">
+        <span class="product-index">B2B / 01</span>
+        <h2 class="product-name">Office ESG Upgrade</h2>
+        <div class="product-meta"><span>ENTERPRISE</span><span class="dot">·</span><span>MODULAR</span><span class="dot">·</span><span data-en="ESG-READY" data-zh="ESG就緒">ESG-READY</span></div>
+        <p class="product-desc" data-en="Modular green walls and plant panels for corporate offices, lobbies, meeting rooms, and staff lounges. Deployed as space products — not construction projects." data-zh="為企業辦公室、前台、會議區和員工休息區設計的模塊化綠色牆面和植物面板。以空間產品方式部署——不是裝修工程。">Modular green walls and plant panels for corporate offices, lobbies, meeting rooms, and staff lounges. Deployed as space products — not construction projects.</p>
+        <div class="product-specs">
+          <div class="spec"><span class="label" data-en="System" data-zh="系統">System</span><span class="value">Xponge Soilless + Closed-loop</span></div>
+          <div class="spec"><span class="label" data-en="Delivery" data-zh="交付">Delivery</span><span class="value" data-en="2–4 Weeks" data-zh="2–4週">2–4 Weeks</span></div>
+          <div class="spec"><span class="label" data-en="Service" data-zh="服務">Service</span><span class="value" data-en="Annual Maintenance Plan" data-zh="年度維護計劃">Annual Maintenance Plan</span></div>
+        </div>
+        <div class="product-price" data-en="FROM HK$XX,XXX / PROJECT" data-zh="HK$XX,XXX起 / 項目">FROM HK$XX,XXX / PROJECT</div>
+        <button class="btn-cart-add" data-cart-name="Office ESG Upgrade" data-cart-price="XX,XXX" data-en="INQUIRE" data-zh="咨詢">INQUIRE</button>
+      </div>
+    </section>
+
+    <!-- B2B 2: Commercial Space Green Upgrade -->
+    <section id="b2b-commercial" class="scene product-section" data-product="b2b-commercial">
+      <video class="product-video-bg" muted autoplay loop playsinline poster="https://images.unsplash.com/photo-1497215842964-222b430dc094?w=1920&q=80"><source src="video/commercial.mp4" type="video/mp4"></video>
+      <div class="product-bg-image"></div>
+      <div class="product-overlay">
+        <span class="product-index">B2B / 02</span>
+        <h2 class="product-name">Commercial Green Upgrade</h2>
+        <div class="product-meta"><span>RETAIL</span><span class="dot">·</span><span>HOSPITALITY</span><span class="dot">·</span><span data-en="EXPERIENCE" data-zh="體驗">EXPERIENCE</span></div>
+        <p class="product-desc" data-en="Green installations for malls, showrooms, hotel lobbies, and experience centres. Designed to increase dwell time, enhance visual memory, and strengthen ESG narrative." data-zh="為商場、展廳、酒店大堂和體驗中心設計的綠色裝置。旨在增加停留時間、增強視覺記憶點、強化ESG敘事。">Green installations for malls, showrooms, hotel lobbies, and experience centres. Designed to increase dwell time, enhance visual memory, and strengthen ESG narrative.</p>
+        <div class="product-specs">
+          <div class="spec"><span class="label" data-en="Application" data-zh="應用">Application</span><span class="value" data-en="Malls / Hotels / Showrooms" data-zh="商場 / 酒店 / 展廳">Malls / Hotels / Showrooms</span></div>
+          <div class="spec"><span class="label" data-en="System" data-zh="系統">System</span><span class="value">Xponge + Modular Panel</span></div>
+          <div class="spec"><span class="label" data-en="Impact" data-zh="效果">Impact</span><span class="value" data-en="ESG Story + Brand Presence" data-zh="ESG故事 + 品牌存在感">ESG Story + Brand Presence</span></div>
+        </div>
+        <div class="product-price" data-en="FROM HK$XX,XXX / PROJECT" data-zh="HK$XX,XXX起 / 項目">FROM HK$XX,XXX / PROJECT</div>
+        <button class="btn-cart-add" data-cart-name="Commercial Green Upgrade" data-cart-price="XX,XXX" data-en="INQUIRE" data-zh="咨詢">INQUIRE</button>
+      </div>
+    </section>
+
+    <!-- B2B 3: Property Asset Enhancement -->
+    <section id="b2b-property" class="scene product-section" data-product="b2b-property">
+      <video class="product-video-bg" muted autoplay loop playsinline poster="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1920&q=80"><source src="video/property.mp4" type="video/mp4"></video>
+      <div class="product-bg-image"></div>
+      <div class="product-overlay">
+        <span class="product-index">B2B / 03</span>
+        <h2 class="product-name">Property Asset Enhancement</h2>
+        <div class="product-meta"><span data-en="OLD BUILDINGS" data-zh="舊樓">OLD BUILDINGS</span><span class="dot">·</span><span data-en="LEASING PRESSURE" data-zh="租賃壓力">LEASING PRESSURE</span><span class="dot">·</span><span data-en="LIGHT RETROFIT" data-zh="輕改造">LIGHT RETROFIT</span></div>
+        <p class="product-desc" data-en="Light-retrofit green panels for aging commercial buildings and properties under leasing pressure. A low-cost, high-impact way to refresh public areas, support leasing promotion, and improve ESG story — without major renovation." data-zh="為老舊商業建築和租賃承壓物業提供輕改造綠色面板。低成本、高影響的方式來刷新公共區域、支持租賃推廣、改善ESG故事——無需大規模裝修。">Light-retrofit green panels for aging commercial buildings and properties under leasing pressure. A low-cost, high-impact way to refresh public areas, support leasing promotion, and improve ESG story — without major renovation.</p>
+        <div class="product-specs">
+          <div class="spec"><span class="label" data-en="Target" data-zh="目標">Target</span><span class="value" data-en="Aging Offices / Old Buildings" data-zh="老舊寫字樓 / 舊樓">Aging Offices / Old Buildings</span></div>
+          <div class="spec"><span class="label" data-en="Install" data-zh="安裝">Install</span><span class="value" data-en="Wall-mounted · No Construction" data-zh="壁掛式 · 無需裝修">Wall-mounted · No Construction</span></div>
+          <div class="spec"><span class="label" data-en="Output" data-zh="產出">Output</span><span class="value" data-en="ESG Story + Leasing Support" data-zh="ESG故事 + 租賃支持">ESG Story + Leasing Support</span></div>
+        </div>
+        <div class="product-price" data-en="FROM HK$XX,XXX / PROJECT" data-zh="HK$XX,XXX起 / 項目">FROM HK$XX,XXX / PROJECT</div>
+        <button class="btn-cart-add" data-cart-name="Property Asset Enhancement" data-cart-price="XX,XXX" data-en="INQUIRE" data-zh="咨詢">INQUIRE</button>
+      </div>
+    </section>
+
+    <!-- ═══════════ B2C SECTION ═══════════ -->
+
+    <!-- B2C: Home Panel -->
+    <section id="c-home" class="scene product-section" data-product="c-home">
+      <video class="product-video-bg" muted autoplay loop playsinline poster="https://images.unsplash.com/photo-1416339442236-8ceb164046f8?w=1920&q=80"><source src="video/home-panel.mp4" type="video/mp4"></video>
+      <div class="product-bg-image"></div>
+      <div class="product-overlay">
+        <span class="product-index">B2C / Home Panel</span>
+        <h2 class="product-name">Home Panel System</h2>
+        <p class="product-desc" data-en="A customizable biophilic home panel for compact urban homes. Not a plant wall — a piece of living furniture. Choose your panel size, pick a plant plan, plug in your pods." data-zh="為高密度城市家庭設計的可自定義親自然面板。不是植物牆——是一件活的家具。選擇面板尺寸、挑選植物方案、插入植物倉。">A customizable biophilic home panel for compact urban homes. Not a plant wall — a piece of living furniture. Choose your panel size, pick a plant plan, plug in your pods.</p>
+
+        <div class="product-variants">
+          <div class="variant-card">
+            <div class="variant-img" style="background-image:url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80')"></div>
+            <span class="variant-name">Home Mini</span>
+            <span class="variant-spec" data-en="Desktop · Entry · Compact" data-zh="桌面 · 入門 · 精巧">Desktop · Entry · Compact</span>
+            <span class="variant-price">HK$3,980–5,800</span>
+            <button class="btn-cart-add" data-cart-name="Home Mini" data-cart-price="3980" data-en="ADD TO CART" data-zh="加入購物車">ADD TO CART</button>
+          </div>
+          <div class="variant-card">
+            <div class="variant-img" style="background-image:url('https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=600&q=80')"></div>
+            <span class="variant-name">Home Standard</span>
+            <span class="variant-spec" data-en="Living Room · Main Model" data-zh="客廳 · 主力型號">Living Room · Main Model</span>
+            <span class="variant-price">HK$8,800–12,800</span>
+            <button class="btn-cart-add" data-cart-name="Home Standard" data-cart-price="8800" data-en="ADD TO CART" data-zh="加入購物車">ADD TO CART</button>
+          </div>
+          <div class="variant-card">
+            <div class="variant-img" style="background-image:url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=600&q=80')"></div>
+            <span class="variant-name">Home Premium</span>
+            <span class="variant-spec" data-en="Luxury · Designer · Bespoke" data-zh="豪宅 · 設計師 · 定製">Luxury · Designer · Bespoke</span>
+            <span class="variant-price">HK$18,800–38,800</span>
+            <button class="btn-cart-add" data-cart-name="Home Premium" data-cart-price="18800" data-en="ADD TO CART" data-zh="加入購物車">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- B2C: Plant Pods + Accessories -->
+    <section id="c-pods" class="scene product-section" data-product="c-pods">
+      <video class="product-video-bg" muted autoplay loop playsinline poster="https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=1920&q=80"><source src="video/pods.mp4" type="video/mp4"></video>
+      <div class="product-bg-image"></div>
+      <div class="product-overlay">
+        <span class="product-index">B2C / Accessories</span>
+        <h2 class="product-name">Plant Pods + Ecosystem</h2>
+        <p class="product-desc" data-en="Interchangeable plant cartridges. Plug in, pull out, replace — as simple as changing an air purifier filter. Plus seed-starting Nursery Kits and Care Kits for ongoing plant health." data-zh="可互換的植物倉。插入、拔出、替換——像換空氣淨化器濾芯一樣簡單。另有育苗套件和護理包，維持植物長期健康。">Interchangeable plant cartridges. Plug in, pull out, replace — as simple as changing an air purifier filter. Plus seed-starting Nursery Kits and Care Kits for ongoing plant health.</p>
+        <div class="product-variants">
+          <div class="variant-card">
+            <div class="variant-img" style="background-image:url('https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=600&q=80')"></div>
+            <span class="variant-name">Plant Pod</span>
+            <span class="variant-spec" data-en="Plug-in Cartridge" data-zh="可插拔植物倉">Plug-in Cartridge</span>
+            <span class="variant-price">HK$68–188</span>
+            <button class="btn-cart-add" data-cart-name="Plant Pod" data-cart-price="68" data-en="ADD TO CART" data-zh="加入購物車">ADD TO CART</button>
+          </div>
+          <div class="variant-card">
+            <div class="variant-img" style="background-image:url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80')"></div>
+            <span class="variant-name">Nursery Kit</span>
+            <span class="variant-spec" data-en="Seed Starter · Education" data-zh="育苗套件 · 親子教育">Seed Starter · Education</span>
+            <span class="variant-price">HK$288–680</span>
+            <button class="btn-cart-add" data-cart-name="Nursery Kit" data-cart-price="288" data-en="ADD TO CART" data-zh="加入購物車">ADD TO CART</button>
+          </div>
+          <div class="variant-card">
+            <div class="variant-img" style="background-image:url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=600&q=80')"></div>
+            <span class="variant-name">Care Kit</span>
+            <span class="variant-spec" data-en="Nutrients · Tools · Guide" data-zh="營養液 · 工具 · 指南">Nutrients · Tools · Guide</span>
+            <span class="variant-price">HK$128–388</span>
+            <button class="btn-cart-add" data-cart-name="Care Kit" data-cart-price="128" data-en="ADD TO CART" data-zh="加入購物車">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- B2C: Plant Plans -->
+    <section id="c-plans" class="scene plans-section">
+      <div class="plans-header">
+        <p class="section-label">[ <span data-en="Plant Plans" data-zh="植物方案">Plant Plans</span> ]</p>
+        <h2 class="section-title" data-en="FIVE FEELINGS. PICK YOURS." data-zh="五種感受。選擇你的。">FIVE FEELINGS. PICK YOURS.</h2>
+        <p class="section-sub" data-en="Curated plant sets designed for specific moods and spaces. No decision fatigue." data-zh="為特定氛圍和空間策劃的植物組合。無決策疲勞。">Curated plant sets designed for specific moods and spaces. No decision fatigue.</p>
+      </div>
+      <div class="plans-grid">
+        <div class="plan-card">
+          <span class="plan-icon">🌲</span>
+          <span class="plan-name">Calm Forest</span>
+          <span class="plan-desc" data-en="Deep greens. Quiet. Relaxed. For living rooms, studies, bedrooms." data-zh="深綠色調。安靜。放鬆。適合客廳、書房、臥室。">Deep greens. Quiet. Relaxed. For living rooms, studies, bedrooms.</span>
+        </div>
+        <div class="plan-card">
+          <span class="plan-icon">🍃</span>
+          <span class="plan-name">Fresh Air</span>
+          <span class="plan-desc" data-en="Clean. Bright. Everyday-friendly. For entryways, kids' rooms, compact homes." data-zh="乾淨。明亮。日常友好。適合玄關、兒童房、小戶型。">Clean. Bright. Everyday-friendly. For entryways, kids' rooms, compact homes.</span>
+        </div>
+        <div class="plan-card">
+          <span class="plan-icon">🌴</span>
+          <span class="plan-name">Tropical Mood</span>
+          <span class="plan-desc" data-en="Relaxed. Vacation feel. Rich texture. For living room feature walls, lounges." data-zh="鬆弛。度假感。豐富層次。適合客廳背景牆、休閒區。">Relaxed. Vacation feel. Rich texture. For living room feature walls, lounges.</span>
+        </div>
+        <div class="plan-card">
+          <span class="plan-icon">🐾</span>
+          <span class="plan-name">Kids & Pets Safe</span>
+          <span class="plan-desc" data-en="Non-toxic. Safe. Educational. For families with children or pets." data-zh="無毒。安全。教育性。適合有孩子或寵物的家庭。">Non-toxic. Safe. Educational. For families with children or pets.</span>
+        </div>
+        <div class="plan-card">
+          <span class="plan-icon">✨</span>
+          <span class="plan-name">Designer Mix</span>
+          <span class="plan-desc" data-en="Curated. Elegant. Statement. For luxury homes, private offices, show flats." data-zh="策展級。優雅。宣言式。適合豪宅、私人辦公室、樣板間。">Curated. Elegant. Statement. For luxury homes, private offices, show flats.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ CONTACT ══ -->
+    <section id="contact" class="scene">
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span>
+          <span class="terminal-title">hk-minijungle — terminal</span>
+        </div>
+        <div class="terminal-body">
+          <p class="terminal-line"><span class="prompt">$</span> initiate_connection --mode=contact</p>
+          <p class="terminal-line output" data-en="Channel open. For B2B inquiries, ESG consulting, or Home Panel orders." data-zh="頻道已開啟。B2B咨詢、ESG顧問、或Home Panel訂購。">Channel open. For B2B inquiries, ESG consulting, or Home Panel orders.</p>
+          <p class="terminal-line prompt-line"><span class="prompt">&gt;</span> <span class="cursor-blink">█</span></p>
+        </div>
+      </div>
+      <div class="contact-links">
+        <a href="https://wa.me/85212345678" class="contact-link wa" target="_blank" rel="noopener"><span class="contact-icon">[+]</span><span>WhatsApp</span></a>
+        <a href="https://instagram.com/hkminijungle" class="contact-link ig" target="_blank" rel="noopener"><span class="contact-icon">[@]</span><span>Instagram</span></a>
+        <a href="mailto:hello@hkminijungle.com" class="contact-link em"><span class="contact-icon">[→]</span><span>Email</span></a>
+      </div>
+    </section>
+
+    <footer id="footer">
+      <p class="footer-motto" data-en="From ESG asset enhancement to customizable home nature. Built on Xponge. Powered by modular hydroponics." data-zh="從ESG資產提升到可自定義的家庭自然系統。基於Xponge。模塊化水培驅動。">From ESG asset enhancement to customizable home nature. Built on Xponge. Powered by modular hydroponics.</p>
+      <div class="footer-top"><span>HK MiniJungle</span><span class="footer-dot">©</span><span>2026</span></div>
+      <p class="footer-tagline" data-en="A Scalable Space Product System. Not a Plant Service." data-zh="可規模化的空間產品系統。不是綠植服務。">A Scalable Space Product System. Not a Plant Service.</p>
+      <a href="/privacy.html" class="footer-privacy">Privacy Policy</a>
+    </footer>
+  </main>
+
+  <div id="cart-bar" class="cart-bar">
+    <button id="cart-toggle" class="cart-toggle"><span class="cart-icon">[ ]</span><span class="cart-count" id="cart-count">0</span></button>
+    <span class="cart-total" id="cart-total">HK$0</span>
+  </div>
+  <div id="mini-cart" class="mini-cart">
+    <div class="mini-cart-header"><span>Cart</span><button class="mini-cart-close" id="cart-close">&times;</button></div>
+    <div class="mini-cart-items" id="cart-items"><p class="cart-empty" data-en="Empty — add something green." data-zh="空的——加點綠色吧。">Empty — add something green.</p></div>
+    <div class="mini-cart-footer"><div class="cart-summary"><span>Total</span><span id="cart-sum-total">HK$0</span></div><button class="btn-checkout" id="cart-checkout">CHECKOUT</button></div>
+  </div>
+
+  <button id="sound-indicator" class="sound-indicator">🔇</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
