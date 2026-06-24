@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Account — HK MiniJungle</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230D1F14'/><text x='16' y='23' text-anchor='middle' font-size='20' font-family='serif'>🌿</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--text:#E8E4DD;--dim:#8A857D;--green:#8FBF9A;--moss:#2D4A34;--moss-lit:#5A8A6A;--card:#0A0A0A}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+.card{width:100%;max-width:420px;background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:6px;padding:2.5rem 2rem}
+.back{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:2rem;display:inline-block;text-decoration:none;transition:color .2s}
+.back:hover{color:var(--green)}
+h1{font-size:1.3rem;font-weight:700;margin-bottom:.3rem}
+.sub{font-size:.75rem;color:var(--dim);margin-bottom:2rem}
+.tabs{display:flex;gap:0;margin-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.tab{padding:.7rem 1.5rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;background:none;border:none;color:var(--dim);cursor:pointer;font-family:inherit;border-bottom:2px solid transparent;transition:all .2s}
+.tab.active{color:var(--green);border-bottom-color:var(--green)}
+.panel{display:none}.panel.active{display:block}
+.fg{margin-bottom:1rem}
+.fg label{display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:.3rem}
+.fg input{width:100%;padding:.65rem .7rem;background:#0D0D0D;border:1px solid rgba(255,255,255,.08);border-radius:3px;color:var(--text);font-family:inherit;font-size:.8rem}
+.fg input:focus{outline:none;border-color:var(--green)}
+.btn{width:100%;padding:.8rem;font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;font-weight:600;background:var(--moss);color:var(--text);border:1px solid var(--moss-lit);font-family:inherit;cursor:pointer;border-radius:4px;transition:all .25s}
+.btn:hover{background:var(--moss-lit)}
+.msg{font-size:.7rem;margin-top:.8rem;text-align:center;min-height:1.2em}
+.msg.err{color:#E05555}.msg.ok{color:var(--green)}
+</style>
+</head>
+<body>
+<div class="card">
+<a href="/" class="back">&larr; Back</a>
+<h1>Account</h1>
+<p class="sub">Register or login to track orders and manage your panels.</p>
+<div class="tabs">
+<button class="tab active" data-panel="register">Register</button>
+<button class="tab" data-panel="login">Login</button>
+</div>
+<div class="panel active" id="panel-register">
+<form id="regForm">
+<div class="fg"><label>Full Name</label><input name="name" type="text" placeholder="Your name" required></div>
+<div class="fg"><label>Email</label><input name="email" type="email" placeholder="you@example.com" required></div>
+<div class="fg"><label>Phone</label><input name="phone" type="tel" placeholder="+852"></div>
+<div class="fg"><label>Password (min 6 chars)</label><input name="password" type="password" minlength="6" required></div>
+<button type="submit" class="btn">Create Account</button>
+</form>
+<p class="msg" id="regMsg"></p>
+</div>
+<div class="panel" id="panel-login">
+<form id="loginForm">
+<div class="fg"><label>Email</label><input name="email" type="email" required></div>
+<div class="fg"><label>Password</label><input name="password" type="password" required></div>
+<button type="submit" class="btn">Sign In</button>
+</form>
+<p class="msg" id="loginMsg"></p>
+</div>
+</div>
+<script>
+const API='/api/customers';
+const redirect=new URLSearchParams(location.search).get('redirect')||'/';
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+b.dataset.panel).classList.add('active')}));
+document.getElementById('regForm').addEventListener('submit',async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target));const m=document.getElementById('regMsg');m.className='msg';m.textContent='Creating account…';try{const r=await fetch(API+'/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});const j=await r.json();if(r.ok){localStorage.setItem('mj_token',j.token);localStorage.setItem('mj_customer',JSON.stringify(j.customer));m.className='msg ok';m.textContent='Account created! Redirecting…';setTimeout(()=>location.href=redirect,800)}else{m.className='msg err';m.textContent=j.error||'Failed.'}}catch{m.className='msg err';m.textContent='Server error.'}});
+document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target));const m=document.getElementById('loginMsg');m.className='msg';m.textContent='Signing in…';try{const r=await fetch(API+'/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});const j=await r.json();if(r.ok){localStorage.setItem('mj_token',j.token);localStorage.setItem('mj_customer',JSON.stringify(j.customer));m.className='msg ok';m.textContent='Signed in!';setTimeout(()=>location.href=redirect,800)}else{m.className='msg err';m.textContent=j.error||'Failed.'}}catch{m.className='msg err';m.textContent='Server error.'}});
+</script>
+</body>
+</html>

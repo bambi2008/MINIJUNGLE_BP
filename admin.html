@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin — HK MiniJungle</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230D1F14'/><text x='16' y='23' text-anchor='middle' font-size='20' font-family='serif'>🌿</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--card:#0A0A0A;--text:#E8E4DD;--dim:#8A857D;--green:#8FBF9A;--red:#D95555;--border:rgba(255,255,255,0.06)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;padding:1.5rem}
+.admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;max-width:1200px;margin-inline:auto}
+.admin-header h1{font-size:1.2rem;font-weight:700}
+.admin-header a{font-size:.65rem;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;text-decoration:none}
+.admin-header a:hover{color:var(--green)}
+.tabs{display:flex;gap:.25rem;margin-bottom:2rem;max-width:1200px;margin-inline:auto}
+.tab-btn{padding:.5rem 1rem;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;background:transparent;border:1px solid var(--border);color:var(--dim);cursor:pointer;font-family:inherit;border-radius:4px;transition:all .2s}
+.tab-btn.active,.tab-btn:hover{background:rgba(143,191,154,.1);border-color:var(--green);color:var(--green)}
+.tab-panel{display:none;max-width:1200px;margin-inline:auto}
+.tab-panel.active{display:block}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.5rem;text-align:center}
+.stat-value{font-size:1.8rem;font-weight:700;color:var(--green)}
+.stat-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-top:.3rem}
+table{width:100%;border-collapse:collapse;font-size:.72rem}
+th{text-align:left;padding:.7rem .8rem;font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);border-bottom:1px solid var(--border)}
+td{padding:.6rem .8rem;border-bottom:1px solid rgba(255,255,255,.03)}
+.badge{display:inline-block;padding:.15rem .5rem;border-radius:2px;font-size:.6rem}
+.badge-order{background:rgba(143,191,154,.12);color:var(--green)}
+.badge-zero{background:rgba(255,255,255,.04);color:var(--dim)}
+.product-editor{display:grid;grid-template-columns:300px 1fr;gap:1.5rem}
+.product-list{display:flex;flex-direction:column;gap:.5rem}
+.product-list-item{padding:.8rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:4px;cursor:pointer;transition:all .2s;font-size:.75rem}
+.product-list-item:hover,.product-list-item.active{border-color:var(--green)}
+.product-list-item .id{font-size:.6rem;color:var(--dim)}
+.edit-panel{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.5rem}
+.edit-panel label{display:block;font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:.25rem;margin-top:1rem}
+.edit-panel input,.edit-panel textarea{width:100%;padding:.6rem .7rem;background:#0D0D0D;border:1px solid rgba(255,255,255,.08);border-radius:3px;color:var(--text);font-family:inherit;font-size:.78rem;resize:vertical}
+.edit-panel textarea{min-height:60px}
+.edit-panel input:focus,.edit-panel textarea:focus{outline:none;border-color:var(--green)}
+.edit-panel .variant-block{background:#0D0D0D;border:1px solid var(--border);border-radius:4px;padding:1rem;margin-top:1rem}
+.variant-block .row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem}
+.btn-save{padding:.7rem 2rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;background:var(--green);color:#050505;border:none;border-radius:4px;cursor:pointer;font-weight:700;font-family:inherit;margin-top:1.5rem;transition:all .2s}
+.btn-save:hover{opacity:.85}
+.msg{font-size:.7rem;margin-top:.5rem;min-height:1.2em}
+.msg.ok{color:var(--green)}
+.msg.err{color:var(--red)}
+.loading{text-align:center;padding:3rem;color:var(--dim)}
+@media(max-width:768px){.product-editor{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="admin-header">
+<div><h1>Admin Panel</h1></div>
+<div style="display:flex;gap:1rem"><a href="/">Site</a><a href="/account.html">Account</a></div>
+</div>
+
+<div class="tabs">
+<button class="tab-btn active" data-tab="customers">Customers</button>
+<button class="tab-btn" data-tab="products">Products</button>
+</div>
+
+<!-- Customers Tab -->
+<div class="tab-panel active" id="panel-customers">
+<div class="stats-grid">
+<div class="stat-card"><div class="stat-value" id="sTotal">-</div><div class="stat-label">Total Customers</div></div>
+<div class="stat-card"><div class="stat-value" id="sWeek">-</div><div class="stat-label">New This Week</div></div>
+<div class="stat-card"><div class="stat-value" id="sMonth">-</div><div class="stat-label">New This Month</div></div>
+<div class="stat-card"><div class="stat-value" id="sOrders">-</div><div class="stat-label">Total Orders</div></div>
+</div>
+<table><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Registered</th><th>Orders</th></tr></thead>
+<tbody id="custTable"><tr><td colspan="5" class="loading">Loading…</td></tr></tbody></table>
+</div>
+
+<!-- Products Tab -->
+<div class="tab-panel" id="panel-products">
+<div class="product-editor">
+<div class="product-list" id="productList"></div>
+<div class="edit-panel" id="editPanel">
+<p style="color:var(--dim);font-size:.75rem">Select a product to edit.</p>
+</div>
+</div>
+</div>
+
+<script>
+// ── Tab switching ──
+document.querySelectorAll('.tab-btn').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+b.dataset.tab).classList.add('active')})});
+
+// ── Customers ──
+async function loadCustomers(){try{const r=await fetch('/api/customers/stats');const d=await r.json();document.getElementById('sTotal').textContent=d.total;document.getElementById('sWeek').textContent=d.thisWeek;document.getElementById('sMonth').textContent=d.thisMonth;document.getElementById('sOrders').textContent=d.totalOrders;const t=document.getElementById('custTable');if(!d.customers.length){t.innerHTML='<tr><td colspan="5" class="loading">No customers yet.</td></tr>';return}t.innerHTML=d.customers.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.email)}</td><td>${esc(c.phone||'-')}</td><td>${new Date(c.createdAt).toLocaleDateString()}</td><td><span class="badge ${c.orderCount?'badge-order':'badge-zero'}">${c.orderCount}</span></td></tr>`).join('')}catch{t.innerHTML='<tr><td colspan="5" class="loading">Server offline.</td></tr>'}}
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+loadCustomers();
+
+// ── Products Editor ──
+const API='/api/admin/products';
+let currentProduct=null;
+
+const DEFAULT_PRODUCTS=[
+{id:'b2b-office',index:'B2B / 01',name:'Office ESG Upgrade',desc:'Modular green walls for corporate offices.',price:'FROM HK$XX,XXX',img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80',variants:[]},
+{id:'b2b-commercial',index:'B2B / 02',name:'Commercial Green Upgrade',desc:'Green installations for malls, showrooms, hotels.',price:'FROM HK$XX,XXX',img:'https://images.unsplash.com/photo-1497215842964-222b430dc094?w=1920&q=80',variants:[]},
+{id:'b2b-property',index:'B2B / 03',name:'Property Asset Enhancement',desc:'Light-retrofit panels for aging buildings.',price:'FROM HK$XX,XXX',img:'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1920&q=80',variants:[]},
+{id:'c-home',index:'B2C / Home Panel',name:'Home Panel System',desc:'Customizable biophilic home panel.',price:'',img:'https://images.unsplash.com/photo-1416339442236-8ceb164046f8?w=1920&q=80',variants:[
+{name:'Home Mini',spec:'Desktop · Entry',price:'HK$3,980–5,800',img:'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80'},
+{name:'Home Standard',spec:'Living Room · Main',price:'HK$8,800–12,800',img:'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=600&q=80'},
+{name:'Home Premium',spec:'Luxury · Designer',price:'HK$18,800–38,800',img:'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=600&q=80'}
+]},
+{id:'c-pods',index:'B2C / Accessories',name:'Plant Pods + Ecosystem',desc:'Interchangeable cartridges and care kits.',price:'',img:'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=1920&q=80',variants:[
+{name:'Plant Pod',spec:'Plug-in Cartridge',price:'HK$68–188',img:'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=600&q=80'},
+{name:'Nursery Kit',spec:'Seed Starter',price:'HK$288–680',img:'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80'},
+{name:'Care Kit',spec:'Nutrients · Tools',price:'HK$128–388',img:'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=600&q=80'}
+]}
+];
+
+async function loadProducts(){try{const r=await fetch(API);const d=await r.json();return d.length?d:DEFAULT_PRODUCTS}catch{return DEFAULT_PRODUCTS}}
+
+function renderProductList(products){
+const list=document.getElementById('productList');
+list.innerHTML=products.map(p=>`<div class="product-list-item" data-id="${p.id}"><div>${p.name}</div><div class="id">${p.id}</div></div>`).join('');
+list.querySelectorAll('.product-list-item').forEach(el=>{el.addEventListener('click',()=>{list.querySelectorAll('.product-list-item').forEach(x=>x.classList.remove('active'));el.classList.add('active');editProduct(products.find(p=>p.id===el.dataset.id))})});
+}
+
+function editProduct(p){
+if(!p)return;
+currentProduct=p;
+const panel=document.getElementById('editPanel');
+const v=p.variants||[];
+panel.innerHTML=`
+<label>Product ID</label><input value="${escAttr(p.id)}" disabled style="opacity:.5">
+<label>Index Line</label><input id="epIndex" value="${escAttr(p.index||'')}">
+<label>Product Name</label><input id="epName" value="${escAttr(p.name)}">
+<label>Product Image URL</label><input id="epImg" value="${escAttr(p.img||'')}">
+<label>Description (supports HTML)</label><textarea id="epDesc">${escAttr(p.desc||'')}</textarea>
+<label>Price Text</label><input id="epPrice" value="${escAttr(p.price||'')}">
+${v.length?`<label>Variants</label>${v.map((v,i)=>`<div class="variant-block"><div class="row"><div><small style="color:var(--dim)">Name</small><input class="vName" value="${escAttr(v.name)}"></div><div><small style="color:var(--dim)">Spec</small><input class="vSpec" value="${escAttr(v.spec||'')}"></div><div><small style="color:var(--dim)">Price</small><input class="vPrice" value="${escAttr(v.price)}"></div></div><div style="margin-top:.5rem"><small style="color:var(--dim)">Image URL</small><input class="vImg" value="${escAttr(v.img||'')}"></div></div>`).join('')}`:''}
+<button class="btn-save" onclick="saveProduct()">SAVE CHANGES</button>
+<p class="msg" id="saveMsg"></p>`;
+}
+
+function collectProduct(){
+if(!currentProduct)return null;
+const p={...currentProduct};
+p.index=document.getElementById('epIndex')?.value||'';
+p.name=document.getElementById('epName')?.value||'';
+p.img=document.getElementById('epImg')?.value||'';
+p.desc=document.getElementById('epDesc')?.value||'';
+p.price=document.getElementById('epPrice')?.value||'';
+const vEls=document.querySelectorAll('.variant-block');
+if(vEls.length){p.variants=[];vEls.forEach((v,i)=>{p.variants.push({name:v.querySelector('.vName')?.value||'',spec:v.querySelector('.vSpec')?.value||'',price:v.querySelector('.vPrice')?.value||'',img:v.querySelector('.vImg')?.value||''})})}
+return p;
+}
+
+window.saveProduct=async function(){
+const p=collectProduct();if(!p)return;
+const msg=document.getElementById('saveMsg');
+try{const r=await fetch(API+'/'+p.id,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});if(r.ok){msg.className='msg ok';msg.textContent='Saved! Refresh the site to see changes.'}else{msg.className='msg err';msg.textContent='Save failed.'}}catch{msg.className='msg ok';msg.textContent='Saved locally. (Server offline — localStorage mode)'}
+};
+
+function escAttr(s){return(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+(async()=>{const products=await loadProducts();renderProductList(products)})();
+</script>
+</body>
+</html>

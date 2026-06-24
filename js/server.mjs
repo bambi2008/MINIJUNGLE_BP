@@ -300,6 +300,29 @@ createServer(async (req, res) => {
     }
   }
 
+  // ── Admin: Product Content Management ──
+  const PRODUCTS_FILE = join(DATA_DIR, 'products.json');
+
+  async function loadProducts() {
+    try { return JSON.parse(await readFile(PRODUCTS_FILE, 'utf-8')); } catch { return []; }
+  }
+  async function saveProducts(p) { await writeFile(PRODUCTS_FILE, JSON.stringify(p, null, 2)); }
+
+  if (url === '/api/admin/products' && method === 'GET') {
+    return jsonRes(res, await loadProducts());
+  }
+
+  if (url.startsWith('/api/admin/products/') && method === 'PUT') {
+    const id = url.split('/').pop();
+    let products = await loadProducts();
+    const body = await readBody(req);
+    const idx = products.findIndex(p => p.id === id);
+    if (idx >= 0) { products[idx] = { ...products[idx], ...body }; }
+    else { products.push({ id, ...body }); }
+    await saveProducts(products);
+    return jsonRes(res, { ok: true });
+  }
+
   // ── STATIC FILES ──
   try {
     let fileUrl = url;

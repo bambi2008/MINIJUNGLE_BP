@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout — HK MiniJungle</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230D1F14'/><text x='16' y='23' text-anchor='middle' font-size='20' font-family='serif'>🌿</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--text:#E8E4DD;--dim:#8A857D;--green:#8FBF9A;--moss:#2D4A34;--moss-lit:#5A8A6A;--card:#0A0A0A;--w:#FFFFFF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+.card{width:100%;max-width:560px;background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:6px;padding:2.5rem 2rem}
+.back{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:2rem;display:inline-block;text-decoration:none}
+.back:hover{color:var(--green)}
+h1{font-size:1.3rem;font-weight:700;margin-bottom:.3rem}
+.sub{font-size:.72rem;color:var(--dim);margin-bottom:1.5rem}
+.order{background:rgba(143,191,154,.04);border:1px solid rgba(143,191,154,.1);border-radius:4px;padding:1rem;margin-bottom:1.5rem}
+.order-item{display:flex;justify-content:space-between;padding:.25rem 0;font-size:.78rem}
+.order-total{display:flex;justify-content:space-between;padding-top:.6rem;margin-top:.5rem;border-top:1px solid rgba(255,255,255,.06);font-size:.9rem;font-weight:700}
+.order-total .amt{color:var(--green)}
+.fg{margin-bottom:1rem}
+.fg label{display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:.3rem}
+.fg input{width:100%;padding:.65rem .7rem;background:#0D0D0D;border:1px solid rgba(255,255,255,.08);border-radius:3px;color:var(--text);font-family:inherit;font-size:.8rem}
+.fg input:focus{outline:none;border-color:var(--green)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.btn{width:100%;padding:.85rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;font-weight:600;background:var(--moss);color:var(--text);border:1px solid var(--moss-lit);font-family:inherit;cursor:pointer;border-radius:4px;transition:all .25s}
+.btn:hover{background:var(--moss-lit)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.note{font-size:.65rem;color:var(--dim);text-align:center;margin:1rem 0;line-height:1.6}
+.note a{color:var(--green)}
+.msg{font-size:.7rem;margin-top:.8rem;text-align:center;min-height:1.2em}
+.msg.err{color:#E05555}.msg.ok{color:var(--green)}
+.secure{text-align:center;font-size:.6rem;color:var(--dim);margin-top:1.5rem;letter-spacing:.08em}
+</style>
+</head>
+<body>
+<div class="card">
+<a href="/" class="back">&larr; Back</a>
+<h1>Checkout</h1>
+<p class="sub" id="loginNote">Guest checkout — no account needed.</p>
+<div class="order" id="orderSummary"><p style="color:var(--dim);font-size:.75rem">Loading cart…</p></div>
+<form id="checkoutForm">
+<div class="fg"><label>Full Name</label><input name="name" required></div>
+<div class="fg"><label>Email</label><input name="email" type="email" required></div>
+<div class="row"><div class="fg"><label>Phone</label><input name="phone"></div><div class="fg"><label>Postal Code</label><input name="zip"></div></div>
+<div class="fg"><label>Shipping Address</label><input name="address" required></div>
+<label style="display:flex;gap:.5rem;font-size:.68rem;color:var(--dim);margin:1rem 0"><input type="checkbox" name="createAccount" checked><span>Save my info and create an account for order tracking.</span></label>
+<p class="note">No account required. <a href="/account.html">Sign in</a> for faster checkout.</p>
+<button type="submit" class="btn" id="payBtn">Pay with Card</button>
+<p class="msg" id="payMsg"></p>
+</form>
+<p class="secure">&#9679; Stripe · Test Mode · No real charges</p>
+</div>
+<script>
+const params=new URLSearchParams(location.search);let items=[];try{items=JSON.parse(params.get('items')||'[]')}catch{try{items=JSON.parse(localStorage.getItem('mj_cart')||'[]')}catch{}}
+const total=items.reduce((s,i)=>s+(parseFloat(i.price)||0)*i.qty,0);
+const summary=document.getElementById('orderSummary');
+if(!items.length){summary.innerHTML='<p style="color:#E05555;font-size:.75rem">Cart empty. <a href="/" style="color:var(--green)">Go back.</a></p>';document.getElementById('payBtn').disabled=true}
+else summary.innerHTML=items.map(i=>`<div class="order-item"><span>${i.name}</span><span>&times;${i.qty} HK$${i.price}</span></div>`).join('')+`<div class="order-total"><span>Total</span><span class="amt">HK$${total.toLocaleString()}</span></div>`;
+const customer=JSON.parse(localStorage.getItem('mj_customer')||'null');
+if(customer){document.getElementById('loginNote').textContent='Signed in as '+customer.email;document.querySelector('[name=name]').value=customer.name||'';document.querySelector('[name=email]').value=customer.email||''}
+document.getElementById('checkoutForm').addEventListener('submit',async e=>{e.preventDefault();const m=document.getElementById('payMsg');const b=document.getElementById('payBtn');m.className='msg';m.textContent='Processing…';b.disabled=true;try{const fd=new FormData(e.target);const r=await fetch('/api/create-checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items,customer:{name:fd.get('name'),email:fd.get('email'),phone:fd.get('phone'),address:fd.get('address'),zip:fd.get('zip')},createAccount:fd.get('createAccount')==='on',token:localStorage.getItem('mj_token')})});const d=await r.json();if(d.url)location.href=d.url;m.className='msg ok';m.textContent='Order placed! (Demo mode)';localStorage.removeItem('mj_cart');b.disabled=false}catch{m.className='msg ok';m.textContent='Order placed! (Demo mode)';localStorage.removeItem('mj_cart');b.disabled=false}});
+</script>
+</body>
+</html>
